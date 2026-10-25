@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#10141b" />
+  <meta name="description" content="당신도 이 세상에 존재했습니다. 이름 하나, 문장 하나라도 오래도록 남을 수 있도록. 고결 서울이 존재하는 이유를 이야기합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:title" content="당신도 이 세상에 존재했습니다. | GOGYEOL SEOUL" />
+  <meta property="og:description" content="당신이 살아온 삶은 하나의 역사입니다. 누구의 삶도 그저 잊히기에는 너무나 고결하기에." />
+  <title>당신도 이 세상에 존재했습니다. — GOGYEOL SEOUL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink:#10141b; --navy:#171c28; --navy2:#252d3b; --cream:#f4f0ea; --cream-2:#e9e2d9; --white:#fffefa; --gold:#c4a987; --gold-light:#dfc7a7; --dust:#a9a09a; --muted:#9b9ba0; --serif:'Noto Serif KR','Noto Serif CJK KR','NanumMyeongjo',serif; --sans:'Noto Sans KR','Noto Sans CJK KR','NanumGothic',sans; --latin:'Cormorant Garamond',Georgia,serif; }
+    *,*::before,*::after {box-sizing:border-box}
+    html { scroll-behavior:smooth; scroll-padding-top:78px }
+    body { margin:0; color:var(--cream); background:var(--ink); font-family:var(--sans); font-weight:300; -webkit-font-smoothing:antialiased; word-break:keep-all; overflow-x:hidden }
+    ::selection { background:var(--gold); color:#10141b }
+    a { color:inherit; text-decoration:none }
+    button {font:inherit}
+    .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; white-space:nowrap }
+    .skip {position:absolute; top:-60px; left:15px; z-index:200; background:var(--cream); color:var(--ink); padding:12px 20px}
+    .skip:focus {top:12px}
+    .progress {position:fixed; z-index:120; top:0; left:0; width:100%; height:2px; transform-origin:left; transform:scaleX(0); background:var(--gold-light); pointer-events:none}
+    .header {height:88px; position:absolute; z-index:110; left:0; top:0; width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:0 clamp(22px,6.1vw,110px); border-bottom:1px solid rgba(255,255,255,.13)}
+    .brand {display:flex; flex-direction:column; align-items:center; line-height:1; white-space:nowrap; letter-spacing:.18em}
+    .brand__name {font-family:var(--latin); font-size:clamp(23px,2.1vw,31px); font-weight:500; letter-spacing:.115em}
+    .brand__city {font-size:8px; letter-spacing:.41em; margin-top:8px; margin-right:-4px; font-weight:400}
+    .header__right {display:flex; align-items:center; gap:42px}
+    .nav {display:flex; align-items:center; gap:30px; color:rgba(255,255,255,.73); font-size:11px; letter-spacing:.04em}
+    .nav a {transition:color .3s}
+    .nav a:hover,.nav a:focus-visible {color:#fff}
+    .back-link {display:flex; gap:11px; align-items:center; font-size:10px; letter-spacing:.08em; color:var(--gold-light); white-space:nowrap}
+    .back-link .arrow {font-size:21px; font-weight:300; line-height:1}
+    .back-link:hover .arrow {transform:translateX(-4px)}
+    .back-link .arrow {transition:transform .25s}
+    .hero {position:relative; isolation:isolate; min-height:min(880px,100svh); min-height:max(750px,100svh); display:flex; align-items:center; overflow:hidden; padding:154px clamp(22px,11.4vw,220px) 120px}
+    .hero::before {content:""; position:absolute; z-index:-3; inset:0; background:radial-gradient(ellipse 66% 77% at 78% 40%, #2d3140 0%, #191e2b 37%, #10141b 76%)}
+    .hero::after {content:""; position:absolute; z-index:-2; inset:0; opacity:.21; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"); mix-blend-mode:screen; pointer-events:none}
+    .hero__orb {position:absolute; z-index:-1; width:clamp(420px,46vw,740px); height:clamp(420px,46vw,740px); border:1px solid rgba(203,180,148,.13); border-radius:50%; top:calc(50% - 33vw); right:clamp(-300px,-9vw,-110px); box-shadow:inset 0 0 85px rgba(215,180,143,.025),0 0 140px rgba(214,185,141,.045); pointer-events:none}
+    .hero__orb::before {content:""; position:absolute; inset:9%; border:1px solid rgba(212,190,156,.16); border-radius:50%}
+    .hero__orb::after {content:""; position:absolute; inset:23%; border:1px solid rgba(212,190,156,.12); border-radius:50%; background:radial-gradient(circle at 50% 50%, rgba(202,166,121,.08),transparent 71%)}
+    .hero__grain-line {position:absolute; z-index:-1; width:1px; height:100%; background:linear-gradient(transparent,rgba(221,204,171,.16),transparent); right:14%; top:0; transform:rotate(24deg)}
+    .hero__content {position:relative; width:min(100%,850px); transform:translateY(12px)}
+    .eyebrow {display:flex; align-items:center; gap:18px; color:var(--gold-light); font-size:10px; font-weight:400; letter-spacing:.22em}
+    .eyebrow::before {content:""; display:block; width:35px; height:1px; background:var(--gold)}
+    h1,h2,h3,p {margin:0}
+    .hero h1 {font-family:var(--serif); font-weight:400; font-size:clamp(49px,6.25vw,98px); line-height:1.47; letter-spacing:-.066em; margin:39px 0 36px; text-shadow:0 5px 40px rgba(0,0,0,.12)}
+    .hero h1 .last {color:#ead7bd}
+    .hero__desc {font-size:clamp(13px,1.18vw,16px); color:#c1c0c0; line-height:2.3; letter-spacing:-.03em; font-weight:300}
+    .hero__meta {position:absolute; bottom:65px; left:clamp(22px,11.4vw,220px); font-family:var(--latin); font-size:20px; color:rgba(223,199,167,.69); letter-spacing:.055em}
+    .scroll {position:absolute; bottom:59px; right:clamp(25px,6.1vw,110px); display:flex; gap:13px; align-items:center; color:rgba(255,255,255,.55); letter-spacing:.22em; font-size:9px; writing-mode:vertical-rl}
+    .scroll::after {content:""; width:1px; height:52px; background:linear-gradient(var(--gold),transparent)}
+    .section {position:relative}
+    .frame {max-width:1370px; margin:0 auto; padding-left:clamp(24px,8.2vw,145px); padding-right:clamp(24px,8.2vw,145px)}
+    .chapter {font-family:var(--latin); font-size:22px; color:var(--gold); font-weight:400; letter-spacing:.09em}
+    .chapter--dark {color:#9b7c57}
+    .section__heading {font-family:var(--serif); letter-spacing:-.062em; font-weight:400; line-height:1.68; font-size:clamp(31px,3.5vw,56px)}
+    .section__para {font-size:clamp(13px,1.04vw,15px); line-height:2.48; letter-spacing:-.025em; color:rgba(244,240,234,.69)}
+    .history {padding:155px 0 174px; background:var(--cream); color:#22242a}
+    .history__grid {display:grid; grid-template-columns:1.15fr .85fr; align-items:start; gap:clamp(44px,9vw,158px)}
+    .history__intro .section__heading {margin-top:37px; max-width:730px}
+    .history__intro .section__heading span {display:block}
+    .history__right {padding-top:128px}
+    .history__right .section__para {color:#65615f; max-width:440px}
+    .history__right .section__para + .section__para {margin-top:26px}
+    .history__rule {height:1px; background:#c9c1b6; width:100%; margin:45px 0 34px}
+    .history__latin {font-family:var(--latin); font-size:clamp(24px,2.5vw,37px); font-style:italic; color:#8b745a; line-height:1.25}
+    .history__lower {display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; border-top:1px solid #d4cdc4; margin-top:126px; padding-top:33px}
+    .history__lower .number {font-family:var(--latin); color:#987e5d; font-size:23px; margin-bottom:22px}
+    .history__lower .phrase {font-family:var(--serif); color:#2f2d2d; font-size:clamp(17px,1.6vw,24px); line-height:1.8}
+    .history__lower .aside {color:#817b75; font-size:11px; line-height:2.1; margin-top:9px}
+    .names {min-height:780px; padding:155px 0 130px; overflow:hidden; background:radial-gradient(ellipse 48% 60% at 72% 62%,#343746 0%,#202632 56%,#151b26 100%)}
+    .names::after {content:""; position:absolute; width:650px; height:650px; border:1px solid rgba(223,199,167,.13); border-radius:50%; right:-320px; top:5%; box-shadow:0 0 0 80px rgba(223,199,167,.016),0 0 0 160px rgba(223,199,167,.018); pointer-events:none}
+    .names__grid {position:relative; z-index:1; display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(40px,8vw,120px); align-items:center}
+    .names h2 {margin-top:38px}
+    .names h2 strong {font-weight:400; color:var(--gold-light)}
+    .names__copy {max-width:560px; margin-top:38px}
+    .names__copy .section__para + .section__para {margin-top:22px}
+    .archive-art {position:relative; display:flex; justify-content:center; align-items:center; min-height:520px}
+    .archive-art__ring {position:absolute; width:370px; height:370px; border-radius:50%; border:1px solid rgba(231,208,180,.2); box-shadow:0 0 0 38px rgba(220,196,163,.014),0 0 0 92px rgba(220,196,163,.014)}
+    .archive-art__card {width:min(85%,325px); min-height:455px; border:1px solid rgba(207,180,144,.44); background:linear-gradient(160deg,#343a45 0%,#232a36 60%,#1b212b); transform:rotate(-5deg); padding:43px 37px 32px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:27px 37px 70px rgba(2,3,8,.33),inset 0 0 30px rgba(204,178,146,.045)}
+    .archive-art__card::before {content:""; position:absolute; inset:11px; border:1px solid rgba(220,196,166,.13); pointer-events:none}
+    .archive-art__mark {font-family:var(--latin); font-size:16px; letter-spacing:.18em; color:var(--gold-light); text-align:center}
+    .archive-art__middle {display:flex; flex-direction:column; align-items:center; gap:30px}
+    .archive-art__symbol {display:flex; justify-content:center; align-items:center; width:83px; height:83px; border:1px solid rgba(222,198,169,.64); border-radius:50%; color:var(--gold-light); font-family:var(--serif); font-size:32px; font-weight:400}
+    .archive-art__words {font-family:var(--serif); text-align:center; font-size:clamp(19px,2.2vw,28px); line-height:1.9; letter-spacing:-.055em}
+    .archive-art__foot {font-family:var(--latin); font-size:17px; letter-spacing:.05em; color:rgba(225,199,169,.67); text-align:center}
+    .pause {background:#ddd4c8; padding:120px 25px 124px; text-align:center; color:#27252a}
+    .pause__ornament {margin:0 auto 40px; width:1px; height:70px; background:linear-gradient(transparent,#977c5f)}
+    .pause__title {font-family:var(--serif); font-size:clamp(25px,3vw,44px); letter-spacing:-.06em; font-weight:400; line-height:1.95}
+    .pause__title .highlight {color:#8c7053}
+    .pause__eng {margin-top:39px; color:#9b7f65; font-family:var(--latin); font-style:italic; font-size:25px}
+    .trace {padding:175px 0 160px; background:#11161f}
+    .trace__top {display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(38px,8vw,135px)}
+    .trace h2 {margin-top:34px}
+    .trace__top .section__para {padding-top:84px; max-width:640px}
+    .trace__list {margin-top:90px; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(237,219,193,.26); border-bottom:1px solid rgba(237,219,193,.26)}
+    .trace__item {min-height:315px; padding:48px clamp(16px,3vw,48px) 38px 0; position:relative}
+    .trace__item:not(:first-child) {padding-left:clamp(18px,3vw,48px); border-left:1px solid rgba(237,219,193,.17)}
+    .trace__count {font-family:var(--latin); font-size:18px; color:var(--gold)}
+    .trace__word {font-family:var(--serif); font-size:clamp(29px,3vw,47px); margin-top:51px; font-weight:400; letter-spacing:-.05em}
+    .trace__meaning {margin-top:13px; color:#96969b; font-size:12px; line-height:2.1}
+    .trace__end {text-align:center; color:#d3c4b0; font-family:var(--serif); font-size:clamp(17px,1.8vw,27px); line-height:2; padding-top:100px; letter-spacing:-.04em}
+    .promise {padding:158px 0 175px; background:var(--cream); color:#28252a; overflow:hidden}
+    .promise__content {position:relative; display:grid; grid-template-columns:1fr 1fr; gap:clamp(45px,9vw,150px); align-items:center}
+    .promise__art {position:relative; height:590px; border:1px solid #d1c7bc; background:radial-gradient(ellipse at 50% 40%,#f9f5ef,#e9e0d5 65%,#e2d7ca); display:flex; align-items:center; justify-content:center; overflow:hidden}
+    .promise__art::before {content:""; position:absolute; inset:16px; border:1px solid rgba(155,128,91,.13)}
+    .promise__art::after {content:""; position:absolute; width:500px; height:500px; border:1px solid rgba(155,128,91,.15); border-radius:50%}
+    .promise__medallion {position:relative; z-index:1; width:215px; height:270px; border:1px solid rgba(141,106,64,.6); border-radius:110px 110px 95px 95px; background:linear-gradient(125deg,#e2cfb3,#faf5e8 45%,#d7bea0); box-shadow:23px 24px 36px rgba(98,75,50,.2),inset -16px -9px 23px rgba(145,111,71,.12),inset 10px 10px 25px rgba(255,255,255,.8); display:flex; align-items:center; justify-content:center; transform:rotate(-6deg)}
+    .promise__medallion::before {content:""; position:absolute; inset:13px; border:1px solid rgba(123,89,58,.36); border-radius:inherit}
+    .promise__medallion::after {content:""; position:absolute; width:11px; height:11px; border:1px solid rgba(123,89,58,.6); border-radius:50%; top:25px}
+    .promise__monogram {font-family:var(--serif); font-size:53px; font-weight:400; color:#a68a65; text-shadow:1px 1px 1px rgba(255,255,255,.9),-1px -1px 2px rgba(125,88,49,.22)}
+    .promise__art-label {position:absolute; z-index:1; bottom:26px; left:29px; font-family:var(--latin); font-size:20px; letter-spacing:.03em; color:#a08c77}
+    .promise h2 {margin-top:34px}
+    .promise .section__para {color:#635d5a; margin-top:38px; max-width:545px}
+    .promise .section__para + .section__para {margin-top:19px}
+    .promise__line {height:1px; width:65px; background:#b49b77; margin:38px 0}
+    .promise__strong {font-family:var(--serif); color:#6b523f; font-size:clamp(18px,1.75vw,25px); line-height:1.85}
+    .manifesto {position:relative; padding:180px 24px 172px; text-align:center; background:radial-gradient(ellipse at 50% 40%,#333746 0%,#1f2531 45%,#11161f 85%); overflow:hidden}
+    .manifesto::before {content:""; position:absolute; top:67px; bottom:67px; left:50%; width:1px; background:linear-gradient(transparent,rgba(202,180,145,.12),transparent); transform:translateX(-50%)}
+    .manifesto__inner {position:relative; z-index:1}
+    .manifesto__eyebrow {font-family:var(--latin); color:var(--gold-light); font-size:25px; letter-spacing:.10em; margin-bottom:42px}
+    .manifesto h2 {font-family:var(--serif); letter-spacing:-.07em; font-weight:400; font-size:clamp(34px,4.6vw,73px); line-height:1.7}
+    .manifesto__sub {font-family:var(--serif); color:#cbbda9; font-size:clamp(17px,1.65vw,25px); line-height:2; margin-top:43px}
+    .manifesto__rule {height:65px; width:1px; background:linear-gradient(var(--gold),transparent); margin:48px auto 12px}
+    .manifesto__desc {font-family:var(--serif); font-size:clamp(14px,1.1vw,17px); letter-spacing:-.04em; line-height:2.55; color:#c2bdba; margin:0 auto}
+    .ending {background:#e8ddd3; color:#28272a; padding:115px 24px 85px; text-align:center}
+    .ending__top {color:#907258; letter-spacing:.24em; font-size:10px; font-weight:400}
+    .ending h2 {font-family:var(--serif); font-size:clamp(33px,4.4vw,70px); font-weight:400; letter-spacing:-.073em; line-height:1.6; margin:33px 0 24px}
+    .ending__desc {color:#77706d; font-family:var(--serif); font-size:clamp(14px,1.2vw,18px); line-height:2}
+    .ending__question {font-family:var(--latin); font-size:clamp(30px,4.2vw,57px); letter-spacing:.028em; color:#806647; margin:60px 0 40px; font-weight:400}
+    .ending__actions {display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+    .action {display:inline-flex; min-width:212px; height:52px; align-items:center; justify-content:center; gap:18px; border:1px solid #a48b74; color:#4e4238; padding:0 19px; font-size:11px; letter-spacing:.05em; transition:background .25s,color .25s,transform .25s}
+    .action:hover,.action:focus-visible {background:#262a33; color:var(--cream); border-color:#262a33; transform:translateY(-2px)}
+    .action--fill {background:#202733; border-color:#202733; color:#f4f0e8}
+    .action--fill:hover,.action--fill:focus-visible {background:#4b423e; border-color:#4b423e}
+    .ending__bottom {font-family:var(--latin); font-size:20px; color:#ad9581; margin-top:83px}
+    .footer {display:flex; align-items:center; justify-content:space-between; padding:33px clamp(24px,6.1vw,110px); background:#11161f; color:#99979a; font-size:10px; letter-spacing:.05em; gap:20px}
+    .footer__brand {font-family:var(--latin); font-size:24px; letter-spacing:.09em; color:#d8d0c7}
+    .footer__links {display:flex; gap:23px; flex-wrap:wrap}
+    .footer a:hover {color:#f2ede6}
+    [data-reveal] {opacity:0; transform:translateY(28px); transition:opacity .9s cubic-bezier(.17,.67,.3,1),transform .9s cubic-bezier(.17,.67,.3,1)}
+    [data-reveal].visible {opacity:1; transform:translateY(0)}
+    @media(max-width:1000px) {
+      .header {height:77px}
+      .nav {display:none}
+      .hero {padding-left:8vw; padding-right:8vw; min-height:800px}
+      .hero__meta {left:8vw}
+      .hero__orb {right:-210px; top:18%}
+      .history__grid,.names__grid,.trace__top,.promise__content {grid-template-columns:1fr; gap:50px}
+      .history__right {padding-top:0; max-width:690px}
+      .history__intro .section__heading span {display:inline}
+      .history__intro .section__heading span::after {content:' '}
+      .names__grid {gap:40px}
+      .archive-art {min-height:490px}
+      .trace__top .section__para {padding-top:0}
+      .promise__art {max-width:640px; width:100%; height:530px; margin:0 auto; order:2}
+      .promise__text {order:1}
+      .history,.names,.trace,.promise {padding-top:125px; padding-bottom:135px}
+      .history__lower {margin-top:95px}
+    }
+    @media(max-width:600px) {
+      html {scroll-padding-top:65px}
+      .header {height:68px; padding:0 22px}
+      .brand__name {font-size:23px}
+      .brand__city {font-size:7px; margin-top:5px}
+      .back-link {font-size:9px; gap:6px}
+      .back-link .arrow {font-size:18px}
+      .hero {padding:145px 28px 132px; min-height:740px; min-height:max(700px,92svh); align-items:center}
+      .hero__content {transform:translateY(-3px)}
+      .hero .eyebrow {font-size:9px; gap:11px; letter-spacing:.14em}
+      .hero .eyebrow::before {width:20px}
+      .hero h1 {font-size:clamp(41px,10.1vw,61px); line-height:1.62; margin:33px 0 29px}
+      .hero__desc {font-size:12px; line-height:2.35}
+      .hero__orb {width:420px; height:420px; top:21%; right:-290px; opacity:.8}
+      .hero__meta {bottom:50px; left:28px; font-size:17px}
+      .scroll {right:22px; bottom:37px; font-size:8px}
+      .scroll::after {height:35px}
+      .history,.names,.trace,.promise {padding-top:100px; padding-bottom:102px}
+      .section__heading {font-size:clamp(29px,7.8vw,44px); line-height:1.72}
+      .chapter {font-size:20px}
+      .section__para {font-size:12.5px; line-height:2.25}
+      .history__intro .section__heading,.names h2,.trace h2,.promise h2 {margin-top:25px}
+      .history__grid {gap:33px}
+      .history__right .section__para + .section__para {margin-top:15px}
+      .history__rule {margin:30px 0 24px}
+      .history__latin {font-size:25px}
+      .history__lower {margin-top:72px; display:block; padding-top:20px}
+      .history__lower>div {display:grid; grid-template-columns:65px 1fr; column-gap:8px; align-items:start; padding:16px 0; border-bottom:1px solid #ded8cf}
+      .history__lower .number {font-size:22px; grid-row:span 2; margin:0}
+      .history__lower .phrase {font-size:18px; line-height:1.6}
+      .history__lower .aside {font-size:10px; margin-top:2px}
+      .names {min-height:auto}
+      .names__copy {margin-top:26px}
+      .archive-art {min-height:450px; margin-top:4px}
+      .archive-art__ring {width:320px; height:320px}
+      .archive-art__card {width:250px; min-height:375px; padding:33px 31px 25px}
+      .archive-art__mark {font-size:13px}
+      .archive-art__symbol {width:64px; height:64px; font-size:24px}
+      .archive-art__words {font-size:20px}
+      .archive-art__foot {font-size:15px}
+      .pause {padding:100px 22px}
+      .pause__ornament {height:58px; margin-bottom:28px}
+      .pause__title {font-size:clamp(22px,5.9vw,33px); line-height:2.05}
+      .pause__eng {margin-top:25px; font-size:22px}
+      .trace__top {gap:24px}
+      .trace__list {margin-top:48px; grid-template-columns:1fr}
+      .trace__item {min-height:160px; padding:27px 0 28px!important; display:grid; grid-template-columns:56px 1fr; grid-template-rows:auto auto; column-gap:10px; align-content:center}
+      .trace__item:not(:first-child) {border-left:0; border-top:1px solid rgba(237,219,193,.17)}
+      .trace__count {font-size:18px; grid-row:span 2; margin-top:8px}
+      .trace__word {font-size:30px; margin-top:0}
+      .trace__meaning {margin-top:0; font-size:11px}
+      .trace__end {padding-top:69px; font-size:18px}
+      .promise__content {gap:42px}
+      .promise__art {height:420px}
+      .promise__medallion {width:160px; height:208px}
+      .promise__monogram {font-size:40px}
+      .promise__art-label {font-size:17px; bottom:19px; left:21px}
+      .promise .section__para {margin-top:25px}
+      .promise__line {margin:25px 0}
+      .promise__strong {font-size:18px}
+      .manifesto {padding:127px 22px 125px}
+      .manifesto__eyebrow {font-size:20px; margin-bottom:27px}
+      .manifesto h2 {font-size:clamp(31px,8.1vw,45px)}
+      .manifesto__sub {font-size:16px; margin-top:28px}
+      .manifesto__desc {font-size:12px}
+      .manifesto__rule {height:49px; margin-top:33px}
+      .ending {padding:88px 22px 70px}
+      .ending h2 {font-size:clamp(32px,8.3vw,49px); margin:23px 0 17px}
+      .ending__desc {font-size:13px}
+      .ending__question {font-size:clamp(31px,8vw,46px); margin:43px 0 30px}
+      .ending__actions {flex-direction:column; align-items:center}
+      .action {width:min(100%,330px)}
+      .ending__bottom {margin-top:60px}
+      .footer {flex-direction:column; align-items:center; gap:15px; padding:33px 22px; text-align:center}
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html {scroll-behavior:auto}
+      *,*::before,*::after {animation-duration:.01ms!important; transition-duration:.01ms!important}
+      [data-reveal] {opacity:1; transform:none}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <header class="header">
+    <a class="brand" href="https://gogyeolseoulbrand.netlify.app/" aria-label="고결 서울 홈페이지로 이동">
+      <span class="brand__name">GOGYEOL</span><span class="brand__city">SEOUL</span>
+    </a>
+    <div class="header__right">
+      <nav class="nav" aria-label="페이지 목차">
+        <a href="#history">우리 모두의 역사</a>
+        <a href="#names">이름 하나, 문장 하나</a>
+        <a href="#promise">고결이 바라는 미래</a>
+      </nav>
+      <a class="back-link" href="https://gogyeolseoulbrand.netlify.app/"><span class="arrow" aria-hidden="true">←</span><span>HOME</span></a>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__orb" aria-hidden="true"></div><div class="hero__grain-line" aria-hidden="true"></div>
+      <div class="hero__content">
+        <div class="eyebrow">WHY WE EXIST · 고결이 존재하는 이유</div>
+        <h1 id="hero-title">당신도<br>이 세상에<br><span class="last">존재했습니다.</span></h1>
+        <p class="hero__desc">당신이 지나온 모든 계절은<br>세상에 단 하나뿐인 역사입니다.</p>
+      </div>
+      <p class="hero__meta">The dignity of having existed.</p>
+      <a class="scroll" href="#history" aria-label="아래로 스크롤">SCROLL</a>
+    </section>
+
+    <section class="section history" id="history" aria-labelledby="history-title">
+      <div class="frame">
+        <div class="history__grid">
+          <div class="history__intro" data-reveal>
+            <div class="chapter chapter--dark">01 <span class="visually-hidden">첫 번째 이야기</span></div>
+            <h2 class="section__heading" id="history-title"><span>역사는 몇 사람의</span><span>이름으로만</span><span>이루어지지 않습니다.</span></h2>
+          </div>
+          <div class="history__right" data-reveal>
+            <p class="section__para">우리가 기억하는 역사에는 수많은 위대한 이름이 남아 있습니다. 그러나 그 시대를 살아내며 세상을 함께 만들어온 수많은 사람들의 이름은 기록되지 못했습니다.</p>
+            <p class="section__para">사랑하고, 꿈꾸고, 자신의 하루를 성실히 살아낸 사람들. 그들 모두가 이 세상의 시간을 만들어왔습니다.</p>
+            <div class="history__rule"></div>
+            <p class="history__latin">Every life is part of history.</p>
+          </div>
+        </div>
+        <div class="history__lower" data-reveal>
+          <div><p class="number">I.</p><p class="phrase">누군가를 사랑한 삶</p><p class="aside">한 사람의 세상을 따뜻하게 만든 마음</p></div>
+          <div><p class="number">II.</p><p class="phrase">묵묵히 걸어온 삶</p><p class="aside">하루하루를 이어 만든 고유한 시간</p></div>
+          <div><p class="number">III.</p><p class="phrase">끝없이 꿈꾸었던 삶</p><p class="aside">아직 다 말하지 못한 이야기까지</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section names" id="names" aria-labelledby="names-title">
+      <div class="frame names__grid">
+        <div class="names__text" data-reveal>
+          <div class="chapter">02</div>
+          <h2 class="section__heading" id="names-title">이름 하나.<br>문장 하나.<br><strong>그것만으로도.</strong></h2>
+          <div class="names__copy">
+            <p class="section__para">어떤 삶에는 찬란한 업적이 남고, 어떤 삶에는 누군가의 가슴에 오래 머무는 작은 기억이 남습니다.</p>
+            <p class="section__para">우리는 그 모든 흔적이 소중하다고 믿습니다. 이름 하나라도, 짧은 문장 하나라도. 그 사람이 이 세상에 존재했다는 사실이 오래도록 전해지기를 바랍니다.</p>
+          </div>
+        </div>
+        <div class="archive-art" data-reveal aria-label="한 사람의 기록을 상징하는 장식적 카드 이미지">
+          <div class="archive-art__ring" aria-hidden="true"></div>
+          <div class="archive-art__card" aria-hidden="true">
+            <div class="archive-art__mark">GOGYEOL · SEOUL</div>
+            <div class="archive-art__middle"><div class="archive-art__symbol">記</div><div class="archive-art__words">한 사람이<br>이곳에 있었습니다.</div></div>
+            <div class="archive-art__foot">A LIFE, REMEMBERED</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pause" aria-label="고결의 신념">
+      <div class="pause__ornament" aria-hidden="true"></div>
+      <p class="pause__title" data-reveal>누구나 단 한 번의 삶을 삽니다.<br><span class="highlight">그 누구의 삶도</span><br>그저 잊히기에는 너무나 고결합니다.</p>
+      <p class="pause__eng" data-reveal>Every existence is worthy.</p>
+    </section>
+
+    <section class="section trace" aria-labelledby="trace-title">
+      <div class="frame">
+        <div class="trace__top">
+          <div data-reveal><div class="chapter">03</div><h2 class="section__heading" id="trace-title">한 사람이<br>남기는 것.</h2></div>
+          <p class="section__para" data-reveal>한 사람의 역사는 거창한 기록에서만 시작되지 않습니다. 불러주던 이름, 마음에 오래 남은 문장, 누군가에게 건넨 사랑. 사소해 보이는 것들이 모여 그 사람만의 세계가 됩니다.</p>
+        </div>
+        <div class="trace__list" data-reveal>
+          <div class="trace__item"><p class="trace__count">01</p><h3 class="trace__word">이름</h3><p class="trace__meaning">세상에 단 하나뿐이었던 사람</p></div>
+          <div class="trace__item"><p class="trace__count">02</p><h3 class="trace__word">문장</h3><p class="trace__meaning">그 사람의 마음을 닮은 말</p></div>
+          <div class="trace__item"><p class="trace__count">03</p><h3 class="trace__word">이야기</h3><p class="trace__meaning">누군가에게 전해질 삶의 흔적</p></div>
+        </div>
+        <p class="trace__end" data-reveal>우리는 그 작은 흔적들이<br>시간의 저편으로 이어질 수 있기를 바랍니다.</p>
+      </div>
+    </section>
+
+    <section class="section promise" id="promise" aria-labelledby="promise-title">
+      <div class="frame promise__content">
+        <div class="promise__art" data-reveal aria-label="시간을 간직하는 작은 금빛 메달의 추상적 표현">
+          <div class="promise__medallion" aria-hidden="true"><span class="promise__monogram">永</span></div>
+          <span class="promise__art-label">Preserved through time</span>
+        </div>
+        <div class="promise__text" data-reveal>
+          <div class="chapter chapter--dark">04</div>
+          <h2 class="section__heading" id="promise-title">고결이<br>존재하는 이유.</h2>
+          <p class="section__para">한 사람의 삶을 기억하는 일이 그 사람의 존재를 존중하는 일이라고 믿습니다.</p>
+          <p class="section__para">고결은 작품과 함께 그 안에 담긴 이름과 이야기를 소중히 여기고, 언젠가 다음 세대에도 전해질 수 있는 기록과 보존의 문화를 만들어가고자 합니다.</p>
+          <div class="promise__line"></div>
+          <p class="promise__strong">당신이 살아온 삶은<br>하나의 역사입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <div class="manifesto__inner">
+        <p class="manifesto__eyebrow" data-reveal>For every life, for every story.</p>
+        <h2 id="manifesto-title" data-reveal>당신도<br>이 세상에 존재했습니다.</h2>
+        <p class="manifesto__sub" data-reveal>그리고 그 사실은, 기억될 가치가 있습니다.</p>
+        <div class="manifesto__rule" aria-hidden="true"></div>
+        <p class="manifesto__desc" data-reveal>당신의 이름도,<br>당신이 사랑했던 순간도,<br>당신만의 고유한 아름다움도.<br><br>오랜 시간 후에도 누군가에게 닿을 수 있기를.</p>
+      </div>
+    </section>
+
+    <section class="ending" aria-labelledby="ending-title">
+      <div class="ending__top" data-reveal>GOGYEOL SEOUL</div>
+      <h2 id="ending-title" data-reveal>당신은<br>무엇을 남기고 싶나요?</h2>
+      <p class="ending__desc" data-reveal>고결은 그 이야기가 오래도록 이어지기를 바랍니다.</p>
+      <p class="ending__question" data-reveal>WHAT WILL YOU PRESERVE?</p>
+      <div class="ending__actions" data-reveal>
+        <a class="action action--fill" href="https://gogyeolseoulbrand.netlify.app/">고결의 세계로 <span aria-hidden="true">↗</span></a>
+        <a class="action" href="https://gogyeolfoundingcustomer.netlify.app/">THE FIRST 100 <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="ending__bottom">Unique beauty, preserved through time.</div>
+    </section>
+  </main>
+  <footer class="footer"><span class="footer__brand">GOGYEOL SEOUL</span><span>당신의 고유함은 기억될 가치가 있습니다.</span><div class="footer__links"><a href="#main">맨 위로 ↑</a><a href="https://gogyeolseoulbrand.netlify.app/">HOME</a></div></footer>
+  <script>
+    (() => {
+      const progress = document.getElementById('progress');
+      let requested = false;
+      function updateProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(1,window.scrollY / max) : 0) + ')';
+        requested = false;
+      }
+      window.addEventListener('scroll', () => { if (!requested) { requested = true; requestAnimationFrame(updateProgress); } }, {passive:true});
+      window.addEventListener('resize', updateProgress);
+      updateProgress();
+      const elements = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => { if (entry.isIntersecting) {entry.target.classList.add('visible'); observer.unobserve(entry.target);} });
+        }, {threshold:.09, rootMargin:'0px 0px -25px 0px'});
+        elements.forEach(el => observer.observe(el));
+      } else { elements.forEach(el => el.classList.add('visible')); }
+    })();
+  </script>
+</body>
+</html>
